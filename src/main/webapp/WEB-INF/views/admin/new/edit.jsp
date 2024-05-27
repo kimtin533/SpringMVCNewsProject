@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIurl" value="/api-admin-new" />
-<c:url var="NewURL" value="/admin-new" />
+<c:url var="APIurl" value="/api/new" />
+<c:url var="NewURL" value="/admin/new/list" />
 <html>
 <head>
 <title>Chỉnh sửa bài viết</title>
@@ -117,7 +117,17 @@
 		
 		$('#btnAddOrUpdateNew').click(function(e) {
 			e.preventDefault();
+			var data={};
 			var formData = $('#formSubmit').serializeArray();
+			var id =$('#newId').val();
+			$.each(formData, function (i, v) {
+	            data[""+v.name+""] = v.value;
+	        });
+			if(id==""){
+				addNew(data);
+			}else{
+				updateNew(data);
+			}
 			
 		});
 		function addNew(data) {
@@ -129,11 +139,10 @@
 						data : JSON.stringify(data),
 						dataType : 'json',
 						success : function(result) {
-							window.location.href = "${NewURL}?type=edit&id="
-									+ result.id + "&message=insert_success";
+							window.location.href = "${NewURL}?page=1&limit=2&message=insert_success";
 						},
 						error : function(error) {
-							window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+							window.location.href = "${NewURL}?page=1&limit=2&message=error_system";
 						}
 					});
 		}
@@ -146,11 +155,10 @@
 						data : JSON.stringify(data),
 						dataType : 'json',
 						success : function(result) {
-							window.location.href = "${NewURL}?type=edit&id="
-									+ result.id + "&message=update_success";
+							window.location.href = "${NewURL}?page=1&limit=2&message=update_success";
 						},
 						error : function(error) {
-							window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+							window.location.href = "${NewURL}?page=1&limit=2&message=error_system";
 						}
 					});
 		}

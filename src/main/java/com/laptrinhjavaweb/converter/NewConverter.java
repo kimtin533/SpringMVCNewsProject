@@ -19,7 +19,7 @@ public class NewConverter {
 		return result;
 	}
 	
-	public NewEntity toEntiry(NewDTO dto) {
+	public NewEntity toEntity(NewDTO dto) {
 		NewEntity result = new NewEntity();
 		result.setTitle(dto.getTitle());
 		result.setShortDescription(dto.getShortDescription());
@@ -27,6 +27,14 @@ public class NewConverter {
 		result.setThumbnail(dto.getThumbnail());
 		return result;
 
+	}
+	
+	public NewEntity toEntity(NewEntity result, NewDTO dto) {
+		result.setTitle(dto.getTitle());
+		result.setShortDescription(dto.getShortDescription());
+		result.setContent(dto.getContent());
+		result.setThumbnail(dto.getThumbnail());
+		return result;
 	}
 	
 }
